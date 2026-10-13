@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>English Grade 5: Chapter 6 - Kick the Ball with Your Foot</title>
+
+  <!-- FAVICON SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
+
+  <!-- Google Fonts & FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #2ECC71;
+      --secondary: #3498DB;
+      --accent: #F1C40F;
+      --dark: #2C3E50;
+      --bg: #F4F9F5;
+      --danger: #E74C3C;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Fredoka', sans-serif;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--dark);
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      background: #FFFFFF;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 0 20px rgba(0,0,0,0.08);
+      position: relative;
+    }
+
+    /* HEADER SPORTY */
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, #27AE60 100%);
+      color: white;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(46,204,113,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* TOP NAVIGATION */
+    .top-quiz-nav {
+      background: #FFF;
+      padding: 10px 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #E8F5E9;
+    }
+
+    .quiz-shortcut-btn {
+      background: var(--accent);
+      color: var(--dark);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    }
+
+    .page-indicator {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #7F8C8D;
+    }
+
+    /* MAIN CONTENT */
+    main {
+      flex: 1;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page {
+      display: none;
+      animation: pageSlide 0.35s ease-out forwards;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes pageSlide {
+      0% { opacity: 0; transform: translateX(12px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    /* COVER PAGE */
+    .cover-container {
+      text-align: center;
+      padding: 25px 15px;
+      background: linear-gradient(135deg, #E8F8F5 0%, #EAF2F8 100%);
+      border-radius: 20px;
+      border: 3px dashed var(--primary);
+      margin-top: 10px;
+    }
+
+    .cover-icon {
+      font-size: 4rem;
+      margin-bottom: 10px;
+      animation: pulseIcon 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseIcon {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+    }
+
+    .name-input-group {
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .name-input-group label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .name-input-group input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #BDC3C7;
+      border-radius: 12px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .name-input-group input:focus {
+      border-color: var(--primary);
+    }
+
+    /* VOCAB GRID (INTERACTIVE MOTION) */
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .card {
+      background: #FFF;
+      border: 2.5px solid #E8F8F5;
+      border-radius: 18px;
+      padding: 14px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+
+    .card:active, .card.clicked {
+      transform: scale(0.92) translateY(4px);
+      border-color: var(--primary);
+      background: #E8F8F5;
+      box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+    }
+
+    .card .icon-wrapper {
+      font-size: 2.2rem;
+      color: var(--secondary);
+      margin-bottom: 6px;
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .card:active .icon-wrapper, .card.clicked .icon-wrapper {
+      transform: scale(1.25) rotate(-10deg);
+    }
+
+    .card .en { font-size: 0.95rem; font-weight: 700; color: var(--dark); }
+    .card .id { font-size: 0.8rem; color: #7F8C8D; }
+
+    /* GRAMMAR CARDS */
+    .grammar-section {
+      background: #F8F9F9;
+      border-radius: 16px;
+      padding: 15px;
+      border: 2px solid #EAEDED;
+    }
+
+    .rule-card {
+      background: white;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+      border-left: 5px solid var(--primary);
+    }
+
+    .rule-card.blue { border-left-color: var(--secondary); }
+    .rule-card.yellow { border-left-color: var(--accent); }
+
+    .rule-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .rule-desc {
+      font-size: 0.85rem;
+      color: #566573;
+      line-height: 1.4;
+    }
+
+    /* STORY BOX */
+    .story-box {
+      background: #FEF9E7;
+      border: 2px dashed #F9E79F;
+      border-radius: 16px;
+      padding: 15px;
+      line-height: 1.5;
+      font-size: 0.9rem;
+    }
+
+    /* QUIZ STYLES */
+    .quiz-card {
+      background: #FFF;
+      border-radius: 16px;
+      padding: 15px;
+      border: 2px solid #E8F5E9;
+    }
+
+    .difficulty-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .badge-medium { background: #EBF5FB; color: #2980B9; }
+    .badge-hard { background: #FDEDEC; color: #C0392B; }
+
+    .question {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--dark);
+      line-height: 1.4;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .opt-btn {
+      padding: 12px;
+      border: 2px solid #BDC3C7;
+      border-radius: 10px;
+      background: #FFF;
+      font-weight: 600;
+      font-size: 0.88rem;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .opt-btn:active {
+      transform: scale(0.97);
+    }
+
+    .opt-btn.selected {
+      background: #E8F8F5;
+      border-color: var(--primary);
+      color: #196F3D;
+    }
+
+    .opt-btn.correct { background: #D4EFDF; border-color: #27AE60; color: #1E8449; }
+    .opt-btn.wrong { background: #FADBD8; border-color: #E74C3C; color: #943126; }
+
+    .hint-btn {
+      background: #FEF9E7;
+      color: #D35400;
+      border: 1px solid #F9E79F;
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .hint-box {
+      display: none;
+      background: #FFFFF0;
+      border: 1px solid #D69E2E;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #744210;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    /* FOOTER NAV BUTTONS */
+    .bottom-nav {
+      margin-top: auto;
+      padding-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-nav {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-nav:active {
+      transform: scale(0.95);
+    }
+
+    .btn-primary { background: var(--primary); color: #FFF; }
+    .btn-secondary { background: #EAEDED; color: var(--dark); }
+    .btn-ok { background: #27AE60; color: #FFF; width: 100%; margin-top: 5px; }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <header>
+      <h1>Grade 5: Chapter 6 - Kick the Ball with Your Foot</h1>
+    </header>
+
+    <!-- NAVIGATION BAR -->
+    <div class="top-quiz-nav" id="topNav" style="display: none;">
+      <span class="page-indicator" id="pageTitle">Halaman 1/7</span>
+      <button class="quiz-shortcut-btn" id="quizNavBtn" onclick="toggleQuizMode()">
+        <i class="fas fa-pencil-alt"></i> Ke Soal
+      </button>
+    </div>
+
+    <main>
+      <!-- PAGE 0: COVER SAMPUL BUKU -->
+      <div class="page active" id="page-0">
+        <div class="cover-container">
+          <div class="cover-icon">⚽🏃‍♀️👀</div>
+          <h2 style="color: var(--primary);">Buku Interaktif</h2>
+          <p style="font-size: 0.85rem; color: #7F8C8D; margin-top: 4px;">Bahasa Inggris Kelas 5 SD</p>
+          
+          <div class="name-input-group">
+            <label><i class="fas fa-user-edit"></i> Masukkan Nama Siswa:</label>
+            <input type="text" id="studentName" placeholder="Contoh: Oliv Ramadhani">
+          </div>
+
+          <button class="btn-nav btn-primary" style="width: 100%; padding: 14px; font-size: 1rem;" onclick="openBook()">
+            <i class="fas fa-book-open"></i> Buka Buku Materi
+          </button>
+        </div>
+      </div>
+
+      <!-- PAGE 1: PARTS OF BODY (1-6) -->
+      <div class="page" id="page-1">
+        <h3 style="color: var(--primary);"><i class="fas fa-child"></i> Anggota Tubuh (Parts of Body)</h3>
+        <p style="font-size:0.8rem; color:#7F8C8D; margin-bottom:10px;">Halaman 1 dari 7 Materi (Sentuh kartu!)</p>
+        <div class="vocab-grid">
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">🦶</div><div class="en">Foot / Feet</div><div class="id">Kaki (Pergelangan Bawah)</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">🦵</div><div class="en">Leg</div><div class="id">Kaki (Tungkai)</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">🖐️</div><div class="en">Hand</div><div class="id">Tangan (Telapak)</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">💪</div><div class="en">Arm</div><div class="id">Lengan</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">👁️</div><div class="en">Eyes</div><div class="id">Mata</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">👂</div><div class="en">Ears</div><div class="id">Telinga</div></div>
+        </div>
+        <div class="bottom-nav">
+          <button class="btn-nav btn-primary" onclick="changePage(2)">Hal 2: Tubuh & Wajah <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- PAGE 2: PARTS OF BODY (7-12) -->
+      <div class="page" id="page-2">
+        <h3 style="color: var(--primary);"><i class="fas fa-smile"></i> Tubuh & Bagian Wajah</h3>
+        <p style="font-size:0.8rem; color:#7F8C8D; margin-bottom:10px;">Halaman 2 dari 7 Materi</p>
+        <div class="vocab-grid">
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">👄</div><div class="en">Mouth</div><div class="id">Mulut</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">👃</div><div class="en">Nose</div><div class="id">Hidung</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">🗣️</div><div class="en">Head</div><div class="id">Kepala</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">🦷</div><div class="en">Teeth</div><div class="id">Gigi</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">☝️</div><div class="en">Fingers</div><div class="id">Jari Tangan</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">🦿</div><div class="en">Knee</div><div class="id">Lutut</div></div>
+        </div>
+        <div class="bottom-nav">
+          <button class="btn-nav btn-secondary" onclick="changePage(1)"><i class="fas fa-arrow-left"></i> Hal 1</button>
+          <button class="btn-nav btn-primary" onclick="changePage(3)">Hal 3: Kata Kerja Aktivitas <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- PAGE 3: ACTION VERBS -->
+      <div class="page" id="page-3">
+        <h3 style="color: var(--primary);"><i class="fas fa-running"></i> Kata Kerja Aktivitas (Action Verbs)</h3>
+        <p style="font-size:0.8rem; color:#7F8C8D; margin-bottom:10px;">Halaman 3 dari 7 Materi</p>
+        <div class="vocab-grid">
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">⚽</div><div class="en">Kick</div><div class="id">Menendang</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">🤲</div><div class="en">Hold / Catch</div><div class="id">Memegang / Menangkap</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">🎯</div><div class="en">Throw</div><div class="id">Melempar</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">👀</div><div class="en">See / Look</div><div class="id">Melihat</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">🎧</div><div class="en">Listen</div><div class="id">Mendengar</div></div>
+          <div class="card" onclick="triggerCardMotion(this)"><div class="icon-wrapper">🏃‍♀️</div><div class="en">Run / Walk</div><div class="id">Berlari / Berjalan</div></div>
+        </div>
+        <div class="bottom-nav">
+          <button class="btn-nav btn-secondary" onclick="changePage(2)"><i class="fas fa-arrow-left"></i> Hal 2</button>
+          <button class="btn-nav btn-primary" onclick="changePage(4)">Hal 4: Rumus Kalimat <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- PAGE 4: RUMUS KALIMAT (GRAMMAR) -->
+      <div class="page" id="page-4">
+        <h3 style="color: var(--primary); margin-bottom:5px;"><i class="fas fa-project-diagram"></i> Rumus Menyusun Kalimat</h3>
+        <p style="font-size:0.8rem; color:#7F8C8D; margin-bottom:10px;">Halaman 4 dari 7 Materi</p>
+
+        <div class="grammar-section">
+          <p style="font-size:0.85rem; margin-bottom:10px; line-height:1.4;">
+            Pola kalimat aktivitas menggunakan bagian tubuh: <br>
+            <b>Subjek + Kata Kerja + Benda + with + Kata Ganti + Bagian Tubuh</b>
+          </p>
+
+          <div class="rule-card">
+            <div class="rule-title" style="color: var(--primary);">1. Penggunaan "With" (Dengan)</div>
+            <div class="rule-desc">
+              Kata <b>with</b> digunakan untuk menjelaskan bagian tubuh yang dipakai.<br>
+              📌 <i>Danu kicks the ball <b>with</b> his foot.</i>
+            </div>
+          </div>
+
+          <div class="rule-card blue">
+            <div class="rule-title" style="color: var(--secondary);">2. Kepunyaan (her / his)</div>
+            <div class="rule-desc">
+              - <b>her</b> = Kepunyaan Oliv (perempuan)<br>
+              - <b>his</b> = Kepunyaan Danu (laki-laki)<br>
+              📌 <i>Oliv catches the ball with <b>her</b> hands.</i>
+            </div>
+          </div>
+
+          <div class="rule-card yellow">
+            <div class="rule-title" style="color: #D4AC0D;">3. Penambahan -s pada Subjek Tunggal</div>
+            <div class="rule-desc">
+              Jika subjeknya 1 orang (Oliv / Danu / She / He), kata kerja ditambah <b>-s / -es</b>.<br>
+              📌 <i>Oliv kick<b>s</b>...</i> | <i>Danu see<b>s</b>...</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-nav">
+          <button class="btn-nav btn-secondary" onclick="changePage(3)"><i class="fas fa-arrow-left"></i> Hal 3</button>
+          <button class="btn-nav btn-primary" onclick="changePage(5)">Hal 5: Baca Cerita <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- PAGE 5: CERITA PENDEK -->
+      <div class="page" id="page-5">
+        <h3 style="color: var(--primary); margin-bottom:5px;"><i class="fas fa-book-reader"></i> Cerita Pendek (Short Story)</h3>
+        <p style="font-size:0.8rem; color:#7F8C8D; margin-bottom:10px;">Halaman 5 dari 7 Materi</p>
+
+        <div class="story-box">
+          <div style="font-weight:700; color:#D35400; text-align:center; margin-bottom:8px;">⚽ Sports Day with Oliv and Danu</div>
+          <p>It is Sports Day at school. Oliv and Danu are competing in the sports field.</p>
+          <p style="margin-top:4px; color:#2980B9;"><i>(Hari ini Hari Olahraga di sekolah. Oliv dan Danu bertanding di lapangan olahraga.)</i></p>
+
+          <p style="margin-top:10px;">Danu plays as a goalkeeper in football. Oliv kicks the ball hard, and Danu stops it using <b>his hands</b>!</p>
+          <p style="margin-top:4px; color:#2980B9;"><i>(Danu menjadi kiper sepak bola. Oliv menendang bola dengan keras, dan Danu menghentikannya menggunakan tangannya!)</i></p>
+
+          <p style="margin-top:10px;">In the relay race, Oliv runs fast with <b>her strong legs</b> and hands the wooden baton to Danu. They listen to the teacher's whistle with <b>their ears</b>!</p>
+          <p style="margin-top:4px; color:#2980B9;"><i>(Dalam lari estafet, Oliv berlari cepat dengan kakinya yang kuat dan menyerahkan tongkat ke Danu. Mereka mendengarkan peluit guru dengan telinga mereka!)</i></p>
+        </div>
+
+        <div class="bottom-nav">
+          <button class="btn-nav btn-secondary" onclick="changePage(4)"><i class="fas fa-arrow-left"></i> Hal 4</button>
+          <button class="btn-nav btn-primary" onclick="changePage(6)">Hal 6: Rangkuman <i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <!-- PAGE 6: RINGKASAN -->
+      <div class="page" id="page-6">
+        <h3 style="color: var(--primary); margin-bottom:5px;"><i class="fas fa-check-circle"></i> Ringkasan Sebelum Latihan</h3>
+        <p style="font-size:0.8rem; color:#7F8C8D; margin-bottom:10px;">Halaman 6 dari 7 Materi</p>
+
+        <div class="grammar-section" style="background:#E8F8F5; border-color:#2ECC71;">
+          <h4 style="color:#1E8449; margin-bottom:8px;">🎯 Pasangan Fungsi Anggota Tubuh:</h4>
+          <ul style="font-size:0.85rem; padding-left:10px; line-height:1.7; color:#145A32; list-style:none;">
+            <li>🔹 Kick = foot / feet</li>
+            <li>🔹 Hold / Catch = hand / fingers</li>
+            <li>🔹 Throw = arm / hand</li>
+            <li>🔹 See / Look = eyes</li>
+            <li>🔹 Listen = ears</li>
+            <li>🔹 Run / Walk = legs / feet</li>
+            <li>🔹 Oliv (She) = her | Danu (He) = his</li>
+          </ul>
+
+          <p style="font-size:0.8rem; margin-top:10px; color:#1E8449; font-weight:600;">
+            Persiapkan dirimu untuk 20 latihan soal (14 Soal Medium + 6 Soal Penalaran Hard dengan Petunjuk)!
+          </p>
+        </div>
+
+        <div class="bottom-nav">
+          <button class="btn-nav btn-secondary" onclick="changePage(5)"><i class="fas fa-arrow-left"></i> Hal 5</button>
+          <button class="btn-nav btn-primary" onclick="startQuizMode()">Mulai 20 Latihan Soal <i class="fas fa-play"></i></button>
+        </div>
+      </div>
+
+      <!-- PAGE 7: LATIHAN SOAL (20 SOAL MEDIUM & HARD DENGAN HINT UNTUK SOAL HARD) -->
+      <div class="page" id="page-7">
+        <div class="quiz-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-size:0.85rem; font-weight:700; color:var(--primary);" id="quizProgressText">Soal 1 / 20</span>
+            <span class="difficulty-badge" id="diffBadge">Medium</span>
+          </div>
+
+          <div class="question" id="quizQuestion">Loading Soal...</div>
+          
+          <div class="options" id="quizOptions"></div>
+
+          <!-- HINT BUTTON (HANYA MUNCUL PADA SOAL TINGKAT HARD) -->
+          <button class="hint-btn" id="hintBtn" onclick="toggleHint()" style="display:none;">
+            <i class="fas fa-lightbulb"></i> Butuh Petunjuk Penalaran?
+          </button>
+
+          <div class="hint-box" id="hintBox">
+            <div id="hintText"></div>
+          </div>
+
+          <button class="btn-nav btn-ok" id="confirmBtn" onclick="confirmAnswer()" style="display:none;">
+            <i class="fas fa-check-circle"></i> Yakin & Kunci Jawaban
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let studentName = "";
+    let lastActivePage = 1;
+    let currentQuizIndex = 0;
+    let selectedOptionIndex = null;
+    let score = 0;
+    let inQuizMode = false;
+
+    // 20 SOAL: 14 MEDIUM + 6 HARD (DITEBAR DI NOMOR 2, 5, 8, 11, 14, 17) DENGAN HINT PENALARAN UNTUK HARD
+    const quizData = [
+      // 1. Medium
+      { q: "1. Danu is playing football in the yard. He wants to score a goal into the net. What part of the body should he primarily use to kick the ball?", opts: ["His hands", "His foot", "His ears", "His eyes"], ans: 1, diff: "Medium", hint: "" },
+      
+      // 2. Hard (Scattered #1)
+      { q: "2. [ANALYSIS] Read the scenario carefully: Oliv is playing basketball. Danu throws the ball toward her. Oliv jumps high, catches the ball in the air, lands safely, and shoots the ball into the hoop. Which sequence of body parts did Oliv use to complete this whole action?", opts: ["Feet to kick -> Ears to listen -> Mouth to speak", "Legs to jump -> Hands to catch -> Arms and hands to shoot", "Eyes to see -> Feet to run -> Nose to breathe", "Ears to listen -> Legs to jump -> Teeth to bite"], ans: 1, diff: "Hard", hint: "💡 Cermati urutan gerakannya: Pertama melompat (memakai kaki/tungkai), lalu menangkap bola di udara (memakai tangan), dan terakhir menembak bola (memakai lengan dan tangan)." },
+
+      // 3. Medium
+      { q: '3. Complete the sentence: "Oliv listens to her teacher\'s sports instructions carefully with her ___."', opts: ["mouth", "eyes", "ears", "feet"], ans: 2, diff: "Medium", hint: "" },
+
+      // 4. Medium
+      { q: '4. Complete the sentence: "Danu uses a racquet to play badminton. He holds the handle tightly with his ___."', opts: ["hand", "foot", "knee", "ear"], ans: 0, diff: "Medium", hint: "" },
+
+      // 5. Hard (Scattered #2)
+      { q: '5. [SYNTAX & GRAMMAR REASONING] Danu is writing a report about their sports day. He wrote: "Oliv kick the ball with her feet." Why is this sentence grammatically incorrect according to Chapter 6 rules?', opts: ["Because Oliv is a singular person (she), so the verb must be 'kicks' with an -s.", "Because 'feet' cannot be used to play football.", "Because 'with' should be replaced by 'on'.", "Because Oliv is a boy's name."], ans: 0, diff: "Hard", hint: "💡 Ingat rumus tata bahasa: Jika subjeknya 1 orang tunggal (Oliv / She / He), kata kerja aktivitas harus ditambah akhiran '-s' (contoh: kick -> kicks)." },
+
+      // 6. Medium
+      { q: '"6. Oliv runs fast along the track." Which part of the body does she mainly use to run?', opts: ["Her arms", "Her teeth", "Her legs and feet", "Her ears"], ans: 2, diff: "Medium", hint: "" },
+
+      // 7. Medium
+      { q: '7. Complete: "The volleyball player hits the ball over the net with his ___."', opts: ["feet", "arm and hand", "mouth", "knees"], ans: 1, diff: "Medium", hint: "" },
+
+      // 8. Hard (Scattered #3)
+      { q: '8. [CONTEXTUAL REASONING] During a football match, Danu is the goalkeeper while Oliv is a forward striker. Oliv kicks the ball hard toward the goal. Danu stops the ball using his hands. Is Danu allowed to do this?', opts: ["No, because touching with hands is illegal for everyone in football.", "Yes, because as a goalkeeper inside his penalty area, he can use his hands to stop the ball.", "No, because Danu should only use his head.", "Yes, because Oliv gave him permission."], ans: 1, diff: "Hard", hint: "💡 Pikirkan peran khusus dalam sepak bola: Hanya penjaga gawang (goalkeeper) yang diperbolehkan aturan untuk menyentuh dan menangkap bola dengan tangan di area penalti." },
+
+      // 9. Medium
+      { q: '9. Complete: "Danu writes down the sports score on a whiteboard using a marker with his ___."', opts: ["fingers and hand", "toes and feet", "elbows", "ears"], ans: 0, diff: "Medium", hint: "" },
+
+      // 10. Medium
+      { q: '10. Apa arti kata yang dicetak tebal? "Oliv **catches** the flying ball with her hands."', opts: ["Menendang", "Menangkap", "Melihat", "Mendengar"], ans: 1, diff: "Medium", hint: "" },
+
+      // 11. Hard (Scattered #4)
+      { q: '11. [STORY COMPREHENSION & DEDUCTION] Read carefully: "In the relay race, Oliv ran first and handed the wooden baton to Danu. Danu caught it firmly and sprinted to the finish line." How did Danu receive the baton from Oliv?', opts: ["He kicked it with his right foot.", "He held and caught it with his hand.", "He balanced it on his head while running.", "He bit it with his teeth."], ans: 1, diff: "Hard", hint: "💡 Pahami konteks lari estafet: Tongkat kayu estafet (baton) dipindahkan dari pelari pertama ke pelari kedua dengan cara dipegang dan ditangkap menggunakan tangan (hand)." },
+
+      // 12. Medium
+      { q: '12. Which sentence correctly describes using eyes?', opts: ["Danu sees the scoreboard with his eyes.", "Danu kicks the ball with his eyes.", "Danu runs fast with his eyes.", "Danu speaks to Oliv with his eyes."], ans: 0, diff: "Medium", hint: "" },
+
+      // 13. Medium
+      { q: '13. What does Oliv do with her mouth during the sports match?', opts: ["She kicks the grass.", "She cheers and speaks to her teammates.", "She catches the flying ball.", "She steps on the line."], ans: 1, diff: "Medium", hint: "" },
+
+      // 14. Hard (Scattered #5)
+      { q: '14. [LOGICAL ANALOGY] Complete the ratio: "Eyes : Seeing colorful flags = Ears : ___"', opts: ["Kicking a heavy ball into the goal", "Listening to the referee\'s loud whistle", "Holding a plastic water bottle", "Running along the green grass"], ans: 1, diff: "Hard", hint: "💡 Gunakan penalaran fungsi panca indera: Jika Mata (Eyes) berhubungan dengan benda visual (melihat bendera), maka Telinga (Ears) berhubungan dengan pendengaran (mendengar peluit referee)." },
+
+      // 15. Medium
+      { q: '15. Select the correct English sentence describing Danu\'s action:', opts: ["Danu kicks the ball with his foot.", "Danu kick the ball with his ears.", "Danu sees the ball with his foot.", "Danu listens the ball with his hand."], ans: 0, diff: "Medium", hint: "" },
+
+      // 16. Medium
+      { q: '16. What part of the body connects your leg to your foot?', opts: ["Ankle / Knee", "Elbow", "Shoulder", "Ear"], ans: 0, diff: "Medium", hint: "" },
+
+      // 17. Hard (Scattered #6)
+      { q: '17. [PUZZLE REASONING] Reorder these mixed words into a logical sentence:\n(1) with (2) Danu (3) her (4) the shuttlecock (5) hits (6) his racket', opts: ["Danu hits the shuttlecock with her racket", "Danu hits the shuttlecock with his racket", "Shuttlecock hits Danu with his racket", "Hits Danu shuttlecock with his racket"], ans: 1, diff: "Hard", hint: "💡 Perhatikan kepunyaan (possessive pronoun): Karena Danu adalah anak laki-laki (male), maka kata ganti kepunyaannya harus 'his' (bukan 'her')." },
+
+      // 18. Medium
+      { q: '18. Complete: "Oliv wears sports shoes on her ___ before running."', opts: ["feet", "hands", "ears", "eyes"], ans: 0, diff: "Medium", hint: "" },
+
+      // 19. Medium
+      { q: '19. "Danu throws the javelin with his strong arm." Apa arti \'throws\'?', opts: ["Menendang", "Melempar", "Mendengar", "Melompat"], ans: 1, diff: "Medium", hint: "" },
+
+      // 20. Medium
+      { q: '20. What do Oliv and Danu do with their hands after a good game?', opts: ["They shake hands and clap.", "They kick each other.", "They close their ears.", "They bite their shoes."], ans: 0, diff: "Medium", hint: "" }
+    ];
+
+    function openBook() {
+      const input = document.getElementById('studentName').value.trim();
+      if (!input) {
+        alert("Mohon isi nama siswa terlebih dahulu!");
+        return;
+      }
+      studentName = input;
+      document.getElementById('topNav').style.display = 'flex';
+      changePage(1);
+    }
+
+    function changePage(pageNum) {
+      lastActivePage = pageNum;
+      inQuizMode = false;
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(`page-${pageNum}`).classList.add('active');
+
+      const titles = ["Sampul", "Halaman 1/6 (Tubuh 1)", "Halaman 2/6 (Tubuh 2)", "Halaman 3/6 (Aktivitas)", "Halaman 4/6 (Rumus)", "Halaman 5/6 (Cerita)", "Halaman 6/6 (Ringkasan)", "Latihan Soal 20 Soal"];
+      document.getElementById('pageTitle').innerText = titles[pageNum];
+      document.getElementById('quizNavBtn').innerHTML = `<i class="fas fa-pencil-alt"></i> Ke Soal`;
+    }
+
+    function triggerCardMotion(card) {
+      card.classList.add('clicked');
+      setTimeout(() => {
+        card.classList.remove('clicked');
+      }, 300);
+    }
+
+    function toggleQuizMode() {
+      if (inQuizMode) {
+        changePage(lastActivePage);
+      } else {
+        startQuizMode();
+      }
+    }
+
+    function startQuizMode() {
+      inQuizMode = true;
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-7').classList.add('active');
+      document.getElementById('pageTitle').innerText = "Latihan 20 Soal";
+      document.getElementById('quizNavBtn').innerHTML = `<i class="fas fa-book-open"></i> Intip Materi`;
+      loadQuiz();
+    }
+
+    function loadQuiz() {
+      document.getElementById('hintBox').style.display = 'none';
+      document.getElementById('confirmBtn').style.display = 'none';
+      selectedOptionIndex = null;
+
+      if (currentQuizIndex >= quizData.length) {
+        document.getElementById('quizProgressText').innerText = "Selesai!";
+        document.getElementById('diffBadge').style.display = 'none';
+        document.getElementById('hintBtn').style.display = 'none';
+        document.getElementById('quizQuestion').innerText = `🎉 Latihan Selesai!\nSiswa: ${studentName}\nSkor Akhir: ${score} / 100`;
+        document.getElementById('quizOptions').innerHTML = `<button class="btn-nav btn-primary" onclick="location.reload()">Ulangi Latihan</button>`;
+        return;
+      }
+
+      const q = quizData[currentQuizIndex];
+      document.getElementById('quizProgressText').innerText = `Soal ${currentQuizIndex + 1} / ${quizData.length}`;
+      
+      const badge = document.getElementById('diffBadge');
+      badge.innerText = q.diff;
+      badge.className = `difficulty-badge ${q.diff === 'Hard' ? 'badge-hard' : 'badge-medium'}`;
+
+      document.getElementById('quizQuestion').innerText = q.q;
+
+      // HINT HANYA MUNCUL DILAYAR JIKA TINGKAT SOAL ADALAH 'HARD'
+      const hintBtn = document.getElementById('hintBtn');
+      if (q.diff === 'Hard' && q.hint) {
+        hintBtn.style.display = 'flex';
+        document.getElementById('hintText').innerText = q.hint;
+      } else {
+        hintBtn.style.display = 'none';
+      }
+
+      const optsContainer = document.getElementById('quizOptions');
+      optsContainer.innerHTML = '';
+
+      q.opts.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'opt-btn';
+        btn.innerText = opt;
+        btn.onclick = () => selectOption(btn, idx);
+        optsContainer.appendChild(btn);
+      });
+    }
+
+    function selectOption(btn, idx) {
+      document.querySelectorAll('.opt-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      selectedOptionIndex = idx;
+      document.getElementById('confirmBtn').style.display = 'flex';
+    }
+
+    function toggleHint() {
+      const hb = document.getElementById('hintBox');
+      hb.style.display = hb.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function confirmAnswer() {
+      if (selectedOptionIndex === null) return;
+
+      const q = quizData[currentQuizIndex];
+      const allBtns = document.querySelectorAll('.opt-btn');
+      allBtns.forEach(b => b.disabled = true);
+
+      if (selectedOptionIndex === q.ans) {
+        allBtns[selectedOptionIndex].classList.add('correct');
+        score += 5; // 20 Soal x 5 Point = 100
+      } else {
+        allBtns[selectedOptionIndex].classList.add('wrong');
+        allBtns[q.ans].classList.add('correct');
+      }
+
+      document.getElementById('confirmBtn').style.display = 'none';
+
+      setTimeout(() => {
+        currentQuizIndex++;
+        loadQuiz();
+      }, 1200);
+    }
+  </script>
+</body>
+</html>
